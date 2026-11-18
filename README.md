@@ -4,6 +4,7 @@
 
 - 展示页：https://shisonglin6.github.io/xiangqian-slice-demo/
 - 直接试玩：https://shisonglin6.github.io/xiangqian-slice-demo/demo.html
+- 玩法与验证点：[NOTES.md](NOTES.md)
 
 ## 文件
 
@@ -11,6 +12,7 @@
 index.html      展示页（介绍、截图、三处共情点、玩法动词、制作现状）
 demo.html       可玩切片（单文件，自包含，无外部依赖）
 assets/         四张游戏截图
+NOTES.md        怎么玩、看哪三处、哪些还是占位
 ```
 
 ## 这是什么
