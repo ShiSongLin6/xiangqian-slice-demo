@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>响钱 · 五分钟切片 | 一间后台，一个人做响</title>
+<meta name="description" content="《响钱》第一章怀表的可玩切片：1935 年怀玉山，你在戏台后台替台上的人做响。一枚五分钱、一只粗瓷碗、一双补过底的袜子。">
+<meta property="og:title" content="响钱 · 五分钟切片">
+<meta property="og:description" content="一间后台，一个人做响。台上的人信了什么，你得亲手把它拆掉。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://shisonglin6.github.io/xiangqian-slice-demo/assets/shot-opening.jpg">
+<style>
+  :root{
+    --bg:#0a0806;
+    --bg2:#100d09;
+    --ink:#efe5d2;
+    --body:#cfc2ad;
+    --muted:#9d917d;
+    --gold:#c9a063;
+    --red:#a13c2b;
+    --line:rgba(201,160,99,.22);
+    --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","SimSun",serif;
+    --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:
+      radial-gradient(80% 60% at 50% 0%,rgba(201,160,99,.06),transparent 60%),
+      linear-gradient(180deg,var(--bg) 0%,#0d0a07 45%,var(--bg) 100%);
+    color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.055;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .top{
+    position:sticky;top:0;z-index:20;
+    background:rgba(10,8,6,.78);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(201,160,99,.13);
+  }
+  .top .wrap{display:flex;align-items:center;gap:28px;height:64px}
+  .brand{font-family:var(--serif);font-size:18px;letter-spacing:.34em;color:var(--ink);white-space:nowrap}
+  .brand i{font-style:normal;color:var(--gold)}
+  nav{display:flex;gap:22px;margin-left:auto}
+  nav a{font-size:12px;letter-spacing:.14em;color:var(--muted);transition:color .2s}
+  nav a:hover{color:var(--gold)}
+  .gh{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);padding:7px 11px;border-radius:2px;white-space:nowrap}
+  .gh:hover{color:var(--gold);border-color:rgba(201,160,99,.5)}
+
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;min-height:82vh;padding:66px 0 78px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--gold);margin-bottom:26px}
+  h1{font-family:var(--serif);font-size:clamp(76px,12vw,168px);line-height:.88;letter-spacing:.1em;margin:0 0 26px;font-weight:600}
+  h1 span{color:var(--gold);position:relative}
+  h1 span:after{content:"";position:absolute;left:6%;right:6%;bottom:-10px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.55}
+  .lede{font-family:var(--serif);font-size:clamp(17px,1.7vw,21px);line-height:1.95;color:#dfd2bd;max-width:34em;margin:0 0 26px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:#bfae94;border:1px solid var(--line);padding:7px 10px;border-radius:2px;background:rgba(255,255,255,.02)}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .primary{
+    display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#161008;
+    font-size:13px;letter-spacing:.16em;padding:14px 22px;border-radius:2px;font-weight:600;
+    box-shadow:0 10px 30px rgba(201,160,99,.16);
+  }
+  .primary:hover{background:#dab77b}
+  .ghost{border:1px solid var(--line);color:#cdbfa8;font-size:12px;letter-spacing:.14em;padding:13px 20px;border-radius:2px}
+  .ghost:hover{border-color:rgba(201,160,99,.55);color:var(--gold)}
+  .hint{font-size:11px;letter-spacing:.1em;color:var(--muted);margin:18px 0 0}
+
+  .hero-shot{margin:0;position:relative;transform:rotate(1.2deg);transition:transform .5s ease}
+  .hero-shot:hover{transform:rotate(0)}
+  .hero-shot img{width:100%;border:1px solid rgba(201,160,99,.24);box-shadow:0 34px 90px rgba(0,0,0,.62)}
+  .hero-shot figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);margin-top:12px;text-align:right}
+
+  .section{padding:92px 0;border-top:1px solid var(--line)}
+  .section-head{display:flex;align-items:baseline;gap:18px;margin-bottom:42px}
+  .num{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--gold)}
+  h2{font-family:var(--serif);font-size:clamp(30px,4vw,52px);letter-spacing:.06em;margin:0;font-weight:600;line-height:1.25}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .two-col p{font-size:16.5px;line-height:2.05;color:var(--body);margin:0}
+  blockquote{
+    margin:58px 0 0;padding:30px 0 30px 34px;border-left:2px solid var(--red);
+    font-family:var(--serif);font-size:clamp(22px,2.9vw,36px);line-height:1.7;color:#f0e4d0;
+  }
+  .quote-src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted);margin:14px 0 0 36px}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.008));display:flex;flex-direction:column}
+  .card figure{margin:0;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);background:#000}
+  .card img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,filter .7s ease;filter:saturate(.9)}
+  .card:hover img{transform:scale(1.035);filter:saturate(1)}
+  .card-body{padding:20px 22px 26px;display:flex;flex-direction:column;flex:1}
+  .card .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold)}
+  .card h3{font-family:var(--serif);font-size:19px;line-height:1.55;margin:9px 0 12px;font-weight:600}
+  .card p{font-size:13.8px;line-height:1.95;color:#bdb09c;margin:0}
+  .card .q{font-family:var(--serif);font-size:16px;color:var(--gold);margin-top:auto;padding-top:18px}
+  .card .q:before{content:"“";opacity:.55}
+  .card .q:after{content:"”";opacity:.55}
+
+  .lead{font-size:16px;line-height:1.95;color:var(--body);margin:0 0 8px;max-width:48em}
+  .verbs{display:flex;flex-wrap:wrap;margin:34px 0 0;padding:0;list-style:none;border:1px solid var(--line)}
+  .verb{flex:1 1 0;min-width:128px;padding:22px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.015)}
+  .verb:last-child{border-right:0}
+  .verb .vn{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted)}
+  .verb .vv{font-family:var(--serif);font-size:clamp(25px,3vw,38px);color:var(--gold);margin:8px 0 7px;line-height:1}
+  .verb .vd{font-size:12px;line-height:1.7;color:#b8ab97}
+  .verb-note{font-family:var(--serif);font-size:clamp(20px,2.4vw,28px);line-height:1.8;color:#ecdfca;margin:34px 0 0;max-width:28em}
+
+  .play-wrap{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+  .frame{border:1px solid var(--line);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  iframe{display:block;width:100%;height:730px;border:0;background:#080706}
+  .play-side{border:1px solid var(--line);padding:24px;background:rgba(255,255,255,.02)}
+  .play-side h3{font-family:var(--serif);font-size:20px;margin:0 0 14px;font-weight:600}
+  .play-side p{font-size:13px;line-height:1.9;color:#b8ab97;margin:0 0 14px}
+  .play-side ul{margin:0 0 18px;padding-left:18px;color:#b8ab97;font-size:12.5px;line-height:1.9}
+  .play-side a{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);border-bottom:1px solid rgba(201,160,99,.3);padding-bottom:3px}
+
+  .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .panel{border:1px solid var(--line);padding:26px 28px;background:rgba(255,255,255,.02)}
+  .panel h3{font-family:var(--serif);font-size:22px;margin:0 0 16px;font-weight:600}
+  .panel ul{margin:0;padding:0;list-style:none}
+  .panel li{font-size:13.5px;line-height:1.9;color:#bdb09c;padding:7px 0;border-bottom:1px dashed rgba(201,160,99,.12);display:flex;gap:10px}
+  .panel li:last-child{border-bottom:0}
+  .panel li b{font-weight:500;color:var(--gold);font-family:var(--mono);font-size:11px;min-width:14px}
+  .status-note{font-family:var(--serif);font-size:clamp(18px,2.1vw,23px);color:#e6d9c4;margin:30px 0 0;line-height:1.8}
+
+  .next-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .step{border-top:1px solid var(--line);padding-top:18px}
+  .step .sn{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold)}
+  .step h3{font-family:var(--serif);font-size:19px;margin:8px 0 10px;font-weight:600;line-height:1.5}
+  .step p{font-size:13px;line-height:1.9;color:#b8ab97;margin:0}
+
+  footer{border-top:1px solid var(--line);padding:36px 0 46px;color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:baseline;justify-content:space-between}
+  footer .f-brand{font-family:var(--serif);font-size:17px;letter-spacing:.24em;color:#d8c9b2}
+  footer .f-note{font-family:var(--mono);font-size:10px;letter-spacing:.1em;line-height:1.9;text-align:right}
+  footer a{color:var(--gold);border-bottom:1px solid rgba(201,160,99,.25)}
+
+  @media (max-width:980px){
+    nav{display:none}
+    .hero{grid-template-columns:1fr;gap:36px;min-height:0;padding:48px 0 58px}
+    .hero-shot{transform:none;order:2}
+    .cards{grid-template-columns:1fr}
+    .two-col{grid-template-columns:1fr;gap:22px}
+    .play-wrap{grid-template-columns:1fr}
+    .status-grid{grid-template-columns:1fr}
+    .next-list{grid-template-columns:1fr}
+    .verbs{display:grid;grid-template-columns:repeat(2,1fr)}
+    .verb{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+    iframe{height:620px}
+    h1{font-size:clamp(64px,18vw,120px)}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px}
+    .top .wrap{height:56px}
+    h1{font-size:clamp(56px,20vw,96px);letter-spacing:.06em}
+    .lede{font-size:16px}
+    .section{padding:64px 0}
+    .section-head{margin-bottom:28px;gap:12px}
+    .actions{flex-direction:column;align-items:stretch}
+    .primary,.ghost{justify-content:center;text-align:center}
+    .card-body{padding:18px 18px 22px}
+    .verbs{grid-template-columns:1fr}
+    .verb{border-right:0}
+    iframe{height:520px}
+    .play-side{padding:20px}
+    blockquote{padding-left:20px}
+    footer .f-note{text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">响<i>钱</i></a>
+    <nav aria-label="页面导航">
+      <a href="#about">是什么</a>
+      <a href="#three">三下</a>
+      <a href="#verbs">动词</a>
+      <a href="#play">试玩</a>
+      <a href="#status">现状</a>
+    </nav>
+    <a class="gh" href="https://github.com/ShiSongLin6/xiangqian-slice-demo" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">第一章 · 怀表 / 切片 01</div>
+      <h1>响<span>钱</span></h1>
+      <p class="lede">一间后台，一个人做响。<br>台上的人信了什么，你得亲手把它拆掉。</p>
+      <div class="meta">
+        <span class="chip">5–12 分钟</span>
+        <span class="chip">单文件可玩</span>
+        <span class="chip">桌面 · 戴耳机</span>
+        <span class="chip">非最终成品</span>
+      </div>
+      <div class="actions">
+        <a class="primary" href="demo.html">打开可玩切片 <span aria-hidden="true">→</span></a>
+        <a class="ghost" href="#three">先看画面</a>
+      </div>
+      <p class="hint">点击开场 · 声音是这一章的玩法</p>
+    </div>
+    <figure class="hero-shot">
+      <img src="assets/shot-opening.jpg" alt="《响钱》开场：后台木桌、粗瓷碗、蓝布帘与母亲侧影">
+      <figcaption>开场 / 后台 · 粗瓷碗 · 一枚五分钱</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head"><span class="num">01</span><h2>这是什么</h2></div>
+      <div class="two-col">
+        <p>1935 年，怀玉山。镇上的戏台正在演《清贫》。你在后台，隔着一层蓝布帘，替台上的人做响：钱、碗、雨、脚步。</p>
+        <p>这不是读完的剧本，是一个可玩的切片。你先做响，再听它落到谁耳朵里。它像戏剧，因为只有一间后台；它必须是游戏，因为台上所有的响都是你做的，后果由你承担。</p>
+      </div>
+      <blockquote>“我的终极标准只有两条：玩家能不能共情；玩法有没有创意。玩法是给剧本增效的。”</blockquote>
+      <p class="quote-src">—— 项目定调</p>
+    </div>
+  </section>
+
+  <section class="section" id="three">
+    <div class="wrap">
+      <div class="section-head"><span class="num">02</span><h2>先看这三下</h2></div>
+      <div class="cards">
+        <article class="card">
+          <figure><img src="assets/shot-money.jpg" alt="戏台后台，木桌与碗，字幕写到“他的手越张越宽”" loading="lazy"></figure>
+          <div class="card-body">
+            <div class="n">01 / 假钱</div>
+            <h3>一枚五分钱，转出八百大洋</h3>
+            <p>你用一枚五分钱，在碗沿转出“八百大洋”的动静。前排女孩真的以为钱掉在碗里——你得亲手把碗端到她面前，告诉她没有。</p>
+            <p class="q">钱掉在里面了。</p>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="assets/shot-mother.jpg" alt="母亲在蓝布帘旁开口，桌前摆着粗瓷碗与旧棉袜" loading="lazy"></figure>
+          <div class="card-body">
+            <div class="n">02 / 不响</div>
+            <h3>一双补过底的袜子，怎么都不响</h3>
+            <p>母亲递来一双补过底的线袜。搓像树叶，抖只有一声风，叩桌沿小灯都不亮。你能把一枚钱响成八百枚，却让这双袜子发不出声。</p>
+            <p class="q">手艺的边界，落在母亲补过的那块布上。</p>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="assets/shot-close.jpg" alt="后台木桌，字幕写到“你没背过这种台词，只好说实话”" loading="lazy"></figure>
+          <div class="card-body">
+            <div class="n">03 / 关麦</div>
+            <h3>散场，麦克风全关了</h3>
+            <p>满裤袋一块钱磕着钥匙。这回，满屋子的麦克风都已经关了。前面你一直在替台上的人做响，最后这一下只给你自己听。</p>
+            <p class="q">这回没有一只麦克风开着。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="verbs">
+    <div class="wrap">
+      <div class="section-head"><span class="num">03</span><h2>玩法是一条动词链</h2></div>
+      <p class="lead">没有战斗，没有 QTE。只有七个动词，每一个都要你亲手做。声音不是配乐，是你手里的材料。</p>
+      <ol class="verbs">
+        <li class="verb"><div class="vn">01</div><div class="vv">捻</div><div class="vd">把一枚硬币捻进碗</div></li>
+        <li class="verb"><div class="vn">02</div><div class="vv">搁</div><div class="vd">木上，或厚布上</div></li>
+        <li class="verb"><div class="vn">03</div><div class="vv">转</div><div class="vd">按住碗沿，快速划圈</div></li>
+        <li class="verb"><div class="vn">04</div><div class="vv">收</div><div class="vd">盖住，或让它躺平</div></li>
+        <li class="verb"><div class="vn">05</div><div class="vv">试</div><div class="vd">搓、抖、叩，三种都试</div></li>
+        <li class="verb"><div class="vn">06</div><div class="vv">接</div><div class="vd">自己坐出去，或请母亲</div></li>
+        <li class="verb"><div class="vn">07</div><div class="vv">还</div><div class="vd">还钱，端碗</div></li>
+      </ol>
+      <p class="verb-note">你能把一枚钱响成八百枚；<br>却让一双补过的袜子发不出声。</p>
+    </div>
+  </section>
+
+  <section class="section" id="play">
+    <div class="wrap">
+      <div class="section-head"><span class="num">04</span><h2>直接试玩</h2></div>
+      <div class="play-wrap">
+        <div class="frame">
+          <iframe src="demo.html" title="《响钱》可玩切片" loading="lazy" allow="autoplay"></iframe>
+        </div>
+        <aside class="play-side">
+          <h3>怎么玩</h3>
+          <p>点“点击开场”，按提示做。字幕点一下可以跳过当前句；右上角可以静音。</p>
+          <ul>
+            <li>先点桌上的硬币，捻进碗里</li>
+            <li>把碗搁在木上，或厚布上</li>
+            <li>按住碗沿划圈，让钱转起来</li>
+            <li>给袜子试音：搓、抖、叩</li>
+            <li>选择：自己接，还是请母亲接</li>
+          </ul>
+          <p>内嵌窗口没有声音时，点右上角“声音 开”，或全屏打开。</p>
+          <a href="demo.html" target="_blank" rel="noopener">全屏打开 ↗</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="status">
+    <div class="wrap">
+      <div class="section-head"><span class="num">05</span><h2>现在做到哪</h2></div>
+      <div class="status-grid">
+        <div class="panel">
+          <h3>已经有</h3>
+          <ul>
+            <li><b>✓</b> 完整可玩流程，约 5–12 分钟</li>
+            <li><b>✓</b> 单文件 HTML，无外部依赖</li>
+            <li><b>✓</b> 合成占位音：硬币、木、布、袜、钥匙、掌声</li>
+            <li><b>✓</b> 一张剪影舞台底图，母亲、木桌、蓝帘、碗与袜</li>
+            <li><b>✓</b> 木/布、收/转、端/留、自己/母亲 多处分支</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>还是占位</h3>
+          <ul>
+            <li><b>—</b> 手没有画，动作靠字幕和声音提示</li>
+            <li><b>—</b> 母亲只有一张侧影；阿穗、老贺、女孩都在帘外</li>
+            <li><b>—</b> 声音是合成的，不是实录拟音</li>
+            <li><b>—</b> 分支后果尚未真正拉开</li>
+            <li><b>—</b> 没有存档、设置与移动端适配</li>
+          </ul>
+        </div>
+      </div>
+      <p class="status-note">这不是成品。它是一个用来判断“值不值得投人”的切片。</p>
+    </div>
+  </section>
+
+  <section class="section" id="next">
+    <div class="wrap">
+      <div class="section-head"><span class="num">06</span><h2>如果继续做</h2></div>
+      <ol class="next-list">
+        <li class="step">
+          <div class="sn">STEP 01</div>
+          <h3>拆镜头表</h3>
+          <p>把“帘后 / 帘前 / 桌面”分成三层，定 12 分钟的节奏。哪一下该静，哪一下该让观众听见，先写在纸上。</p>
+        </li>
+        <li class="step">
+          <div class="sn">STEP 02</div>
+          <h3>录一版真拟音</h3>
+          <p>硬币、粗瓷、厚布、线袜、钥匙。合成音能验证机制，但这一章最该花钱的地方，是一间能录拟音的屋子。</p>
+        </li>
+        <li class="step">
+          <div class="sn">STEP 03</div>
+          <h3>画一双手</h3>
+          <p>端碗、转钱、试袜，三个动作的逐帧。手是玩家在画面里的身体；没有手，动词就还停在字幕上。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-brand">响钱 · 第一章怀表</div>
+    <div class="f-note">
+      原稿 G-A62高 · 切片制作 2026-11-18 · 非最终成品<br>
+      <a href="https://github.com/ShiSongLin6/xiangqian-slice-demo" target="_blank" rel="noopener">GitHub 仓库</a> ·
+      <a href="demo.html" target="_blank" rel="noopener">可玩切片</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
